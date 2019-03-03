@@ -18,3 +18,18 @@ export const removeChannel = () => {
         type: types.REMOVE_CHANNEL
     }
 }
+
+export function fetchChannels() {
+    return function(dispatch) {
+      return fetch('/aaassss')
+        .then(
+          response => response.json(),
+          error => console.log('An error occurred.', error)
+        )
+        .then(json =>
+          dispatch(addChannel(json))
+        )
+    }
+  }
+  
+  
