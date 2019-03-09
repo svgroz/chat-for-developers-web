@@ -6,7 +6,7 @@ import thunkMiddleware from 'redux-thunk'
 import App from './components/App'
 import rootReducer from './reducers/channels'
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+const store = createStore(rootReducer, { channels: [] }, applyMiddleware(thunkMiddleware))
 
 render(
   <Provider store={store}>

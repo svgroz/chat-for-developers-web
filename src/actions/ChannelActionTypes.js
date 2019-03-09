@@ -1,4 +1,6 @@
 
 export const GET_CHANNELS = 'GET_CHANNELS';
-export const ADD_CHANNEL = 'ADD_CHANNEL';
+export const CREATE_CHANNEL = 'CREATE_CHANNEL';
 export const REMOVE_CHANNEL = 'REMOVE_CHANNEL';
+
+export const SET_USER_ID = 'SET_USER_ID';

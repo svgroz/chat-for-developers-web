@@ -1,16 +1,53 @@
 import * as types from "./ChannelActionTypes"
 
-export const getChannels = () => {
+export const setUserId = (userId) => {
     return {
-        type: types.GET_CHANNELS
+        type: types.SET_USER_ID,
+        userId: userId
     }
 }
 
-export const addChannel = (channel) => {
-    return {
-        type: types.ADD_CHANNEL,
-        channel
-    }
+export const getChannels = () => (dispatch, getState) => {
+    const userId = getState().userId
+    return fetch("/api/channel/list?userId=" + userId, {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
+        .then(rawResponse => {
+            return rawResponse.json()
+        })
+        .then(response => {
+            console.log(response)
+            dispatch({
+                type: types.GET_CHANNELS,
+                channels: response
+            })
+        })
+}
+
+export const addChannel = (channel) => (dispatch, getState) => {
+    const userId = getState().userId
+    const request = { "userId": userId, "name": channel, members: [] }
+    return fetch("/api/channel/create",
+        { 
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        })
+        .then(rawResponse => {
+            return rawResponse.json;
+        })
+        .then(response => {
+            dispatch({
+                type: types.CREATE_CHANNEL,
+                channel: channel
+            })
+        });
 }
 
 export const removeChannel = () => {
@@ -18,18 +55,3 @@ export const removeChannel = () => {
         type: types.REMOVE_CHANNEL
     }
 }
-
-export function fetchChannels() {
-    return function(dispatch) {
-      return fetch('/aaassss')
-        .then(
-          response => response.json(),
-          error => console.log('An error occurred.', error)
-        )
-        .then(json =>
-          dispatch(addChannel(json))
-        )
-    }
-  }
-  
-  

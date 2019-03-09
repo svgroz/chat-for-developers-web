@@ -1,12 +1,17 @@
+import React from 'react'
+
 import { connect } from 'react-redux'
-import ChannelsList from '../components/ChannelsList'
 
-const mapStateToProps = (state, ownProps) => ({
-    channels: state.channels
-})
+const ChannelsList = props => (
+    <ul>
+        
+    </ul>
+)
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    y: ["1", "2"]
-})
+const mapStateToProps = state => {
+    return {
+        channels: state.channels
+    }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelsList)
+export default connect(mapStateToProps)(ChannelsList)

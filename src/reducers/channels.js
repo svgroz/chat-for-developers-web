@@ -1,23 +1,29 @@
 import * as types from '../actions/ChannelActionTypes';
 
-const channels = (state = { channels: [] }, action) => {
+const channels = (state, action) => {
     switch(action.type) {
+        case types.SET_USER_ID: {
+            return {
+                ...state,
+                userId: action.userId
+            }
+        }
         case types.GET_CHANNELS: {
             return {
-                state,
+                ...state,
                 channels: state.channels
             }
         }
-        case types.ADD_CHANNEL: {
+        case types.CREATE_CHANNEL: {
             return {
-                state,
+                ...state,
                 channels: state.channels.concat(action.channel)
             }
         }
         case types.REMOVE_CHANNEL: {
             return {
-                state,
-                channel: state.channels.slice(-1, 1)
+                ...state,
+                channels: state.channels.length === 0? [] : state.channels.slice(-1, 1)
             }
         }
         default: {

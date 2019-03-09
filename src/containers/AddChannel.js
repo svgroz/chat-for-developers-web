@@ -1,27 +1,34 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { addChannel, removeChannel, fetchChannels } from '../actions/ChannelActions'
+import { addChannel, removeChannel, fetchChannels, setUserId, getChannels } from '../actions/ChannelActions'
 
 const AddChannel =  ({ dispatch }) => {
-    let input
+    let channelToAdd
+    let userId
 
     return (
         <div>
-            <input ref={node => input = node} />
+            <input onChange={event => userId = event.target.value}/>
             <button onClick={e => {
-                // dispatch(addChannel(input.value))
-                dispatch(fetchChannels())
+                dispatch(setUserId(userId))
+            } } >
+                Set User Id
+            </button>
+
+            <input onChange={event => channelToAdd = event.target.value}/>
+            <button onClick={e => {
+                dispatch(addChannel(channelToAdd))
             } } >
                 Add Channel
             </button>
+
             <button onClick={e => {
-                dispatch(removeChannel())
-            } } >
-                Remove Channel
+                dispatch(getChannels())
+            }}>
+                Get channels
             </button>
-            
-    </div>
+        </div>
     )
 }
 
